@@ -34,7 +34,7 @@ class Client:
         try:
             self.websocket = connect("ws://localhost:8765")
             self.connection_status = True
-            self.websocket.send("Hello world!")
+            self.websocket.send("Status: Connection made to server (ping ponged)")
             message = self.websocket.recv()
             print(f"Received: {message}")
         except ConnectionRefusedError:
@@ -52,6 +52,13 @@ class Client:
             self.connection_status = False
             print("Connection error")
             time.sleep(3)
+
+    def send_msg(self, message):
+        self.websocket.send(message)
+
+    def recieve_msg(self):
+        message = self.websocket.recv()
+        print(f"Received: {message}")
 
     def start(self):
         print("Client started")
